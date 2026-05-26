@@ -1,0 +1,6 @@
+{
+  "name": "nexus-monorepo-root",
+  "dependencies": {
+    "next": "16.2.6"
+  }
+}

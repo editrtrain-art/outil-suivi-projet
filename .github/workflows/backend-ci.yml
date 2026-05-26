@@ -1,0 +1,50 @@
+name: Backend CI/CD
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'apps/backend/**'
+      - '.github/workflows/backend-ci.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'apps/backend/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          
+      - name: Install dependencies
+        run: |
+          cd apps/backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx aiosqlite
+          
+      - name: Run Tests
+        run: |
+          cd apps/backend
+          python -m pytest
+        env:
+          DATABASE_URL: sqlite+aiosqlite:///:memory:
+          ENVIRONMENT: testing
+          CLERK_SECRET_KEY: fake-secret
+          LOG_LEVEL: CRITICAL
+
+  # Example deployment job (placeholder for Docker Hub / Cloud Provider)
+  # deploy:
+  #   needs: test
+  #   if: github.ref == 'refs/heads/main'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Build & Push Docker Image
+  #       ...
