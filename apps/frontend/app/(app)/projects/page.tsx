@@ -26,6 +26,15 @@ export default function ProjectsPage() {
     e.preventDefault();
     if (!activeWorkspaceId) return;
 
+    // Past date check
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const selectedDate = new Date(startDate);
+    if (selectedDate < today) {
+      const confirmPast = window.confirm("La date de début du projet est dans le passé. Voulez-vous valider cette date ?");
+      if (!confirmPast) return;
+    }
+
     try {
       await createProjectMutation.mutateAsync({
         workspaceId: activeWorkspaceId,
@@ -33,7 +42,7 @@ export default function ProjectsPage() {
         description,
         startDate,
         endDate,
-        budgetTotal: parseFloat(budget) || 0,
+        budgetTotal: 0, // Budget is removed, default to 0
       });
       setIsModalOpen(false);
       setName("");
@@ -117,16 +126,12 @@ export default function ProjectsPage() {
                     </p>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4 text-xs text-slate-400">
+                  <div className="grid grid-cols-1 gap-4 text-xs text-slate-400">
                     <div className="flex items-center gap-1.5">
                       <Calendar className="h-4 w-4 text-slate-500" />
                       <span>
                         {format(new Date(project.startDate), "MMM dd, yyyy")}
                       </span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Coins className="h-4 w-4 text-slate-500" />
-                      <span>{project.budget.toLocaleString()} DH</span>
                     </div>
                   </div>
                 </div>
@@ -206,17 +211,6 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-slate-400">Total Budget (DH)</label>
-                <input
-                  type="number"
-                  required
-                  min="0"
-                  value={budget}
-                  onChange={(e) => setBudget(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg py-2 px-3 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500/50"
-                />
-              </div>
 
               <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
                 <Button

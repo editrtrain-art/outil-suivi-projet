@@ -74,7 +74,7 @@ class TaskResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-@router.post("/", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=TaskResponse, status_code=status.HTTP_201_CREATED)
 async def create_task(
     data: TaskCreate,
     service: TaskService = Depends(get_task_service),

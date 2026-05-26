@@ -60,7 +60,7 @@ class BaselineCompareResponse(BaseModel):
     variances: List[VarianceItem]
 
 
-@router.post("/", response_model=BaselineResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=BaselineResponse, status_code=status.HTTP_201_CREATED)
 async def create_baseline(
     data: BaselineCreate,
     db: AsyncSession = Depends(get_db),

@@ -21,7 +21,7 @@ const navigation = [
   { name: 'Resources', href: '/resources', icon: Users },
   { name: 'Deliverables', href: '/deliverables', icon: FileCheck },
   { name: 'Risk Register', href: '/risks', icon: AlertTriangle },
-  { name: 'Calendar', href: '/calendar', icon: Calendar },
+  { name: 'Calendar', href: '/planning', icon: Calendar },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 

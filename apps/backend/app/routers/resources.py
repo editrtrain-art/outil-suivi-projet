@@ -31,7 +31,7 @@ class ResourceResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-@router.post("/", response_model=ResourceResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=ResourceResponse, status_code=status.HTTP_201_CREATED)
 async def create_resource(
     data: ResourceCreate,
     service: ResourceService = Depends(get_resource_service),

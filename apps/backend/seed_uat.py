@@ -52,8 +52,8 @@ async def run_uat():
         # 1. Create Workspace
         try:
             ws = await workspace_service.create_workspace(
-                name="JESA NEXUS UAT",
-                slug=f"jesa-uat-{uuid.uuid4().hex[:4]}",
+                name="SNTE NEXUS UAT",
+                slug=f"snte-uat-{uuid.uuid4().hex[:4]}",
                 creator_id=user_id
             )
             print(f"✅ Workspace created: {ws.name}")

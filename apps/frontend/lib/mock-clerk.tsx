@@ -81,8 +81,8 @@ export function OrganizationSwitcher() {
 // Mock useAuth hook: returns dummy user/org context and mock token generator
 export function useAuth() {
   return {
-    orgId: "mock_workspace_id",
-    userId: "mock_user_id",
+    orgId: "00000000-0000-0000-0000-000000000001",
+    userId: "00000000-0000-0000-0000-000000000002",
     getToken: async () => {
       // Deterministic mock token format parsed by apps/backend/app/core/dependencies.py
       return "mock_admin_user123_admin@nexus.local";

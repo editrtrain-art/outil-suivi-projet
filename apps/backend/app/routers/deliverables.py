@@ -49,7 +49,7 @@ class TransitionRequest(BaseModel):
     comment: str | None = None
 
 
-@router.post("/", response_model=DeliverableResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=DeliverableResponse, status_code=status.HTTP_201_CREATED)
 async def create_deliverable(
     data: DeliverableCreate,
     db: AsyncSession = Depends(get_db),

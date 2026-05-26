@@ -78,4 +78,4 @@ npm run dev
 
 ## License
 
-Proprietary — JESA S.A. All rights reserved.
+Proprietary — SNTE. All rights reserved.

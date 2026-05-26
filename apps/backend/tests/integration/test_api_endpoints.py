@@ -88,14 +88,14 @@ async def test_ready_endpoint(client: AsyncClient) -> None:
 @pytest.mark.asyncio
 async def test_unauthenticated_request_is_rejected(client: AsyncClient) -> None:
     """Endpoints requiring auth should return 403 without a Bearer token."""
-    response = await client.get("/api/v1/workspaces/")
+    response = await client.get("/api/v1/workspaces")
     assert response.status_code == 403
 
 
 @pytest.mark.asyncio
 async def test_authenticated_request_succeeds(client: AsyncClient) -> None:
     """Authenticated requests to workspace list should return 200."""
-    response = await client.get("/api/v1/workspaces/", headers=_mock_headers())
+    response = await client.get("/api/v1/workspaces", headers=_mock_headers())
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
@@ -109,7 +109,7 @@ async def test_create_and_list_workspace(client: AsyncClient) -> None:
 
     # Create
     create_resp = await client.post(
-        "/api/v1/workspaces/",
+        "/api/v1/workspaces",
         json={"name": "Test Workspace", "slug": "test-ws"},
         headers=headers,
     )
@@ -120,7 +120,7 @@ async def test_create_and_list_workspace(client: AsyncClient) -> None:
     workspace_id = ws["id"]
 
     # List
-    list_resp = await client.get("/api/v1/workspaces/", headers=headers)
+    list_resp = await client.get("/api/v1/workspaces", headers=headers)
     assert list_resp.status_code == 200
     workspaces = list_resp.json()
     assert any(w["id"] == workspace_id for w in workspaces)
@@ -135,7 +135,7 @@ async def test_create_and_get_project(client: AsyncClient) -> None:
 
     # Create workspace first
     ws_resp = await client.post(
-        "/api/v1/workspaces/",
+        "/api/v1/workspaces",
         json={"name": "Project WS", "slug": "proj-ws"},
         headers=headers,
     )
@@ -143,7 +143,7 @@ async def test_create_and_get_project(client: AsyncClient) -> None:
 
     # Create project
     project_resp = await client.post(
-        "/api/v1/projects/",
+        "/api/v1/projects",
         json={
             "workspace_id": workspace_id,
             "name": "Test Project",
@@ -176,13 +176,13 @@ async def test_create_phase_and_task(client: AsyncClient) -> None:
 
     # Setup: workspace + project
     ws = (await client.post(
-        "/api/v1/workspaces/",
+        "/api/v1/workspaces",
         json={"name": "Phase WS", "slug": "phase-ws"},
         headers=headers,
     )).json()
 
     proj = (await client.post(
-        "/api/v1/projects/",
+        "/api/v1/projects",
         json={
             "workspace_id": ws["id"],
             "name": "Phase Project",
@@ -194,7 +194,7 @@ async def test_create_phase_and_task(client: AsyncClient) -> None:
 
     # Create phase
     phase_resp = await client.post(
-        "/api/v1/phases/",
+        "/api/v1/phases",
         json={
             "project_id": proj["id"],
             "name": "Phase Alpha",
@@ -208,7 +208,7 @@ async def test_create_phase_and_task(client: AsyncClient) -> None:
 
     # Create task
     task_resp = await client.post(
-        "/api/v1/tasks/",
+        "/api/v1/tasks",
         json={
             "phase_id": phase_id,
             "name": "Task Alpha-1",
@@ -233,13 +233,13 @@ async def test_evm_indicators_endpoint(client: AsyncClient) -> None:
 
     # Setup: workspace + project
     ws = (await client.post(
-        "/api/v1/workspaces/",
+        "/api/v1/workspaces",
         json={"name": "EVM WS", "slug": "evm-ws"},
         headers=headers,
     )).json()
 
     proj = (await client.post(
-        "/api/v1/projects/",
+        "/api/v1/projects",
         json={
             "workspace_id": ws["id"],
             "name": "EVM Project",
@@ -270,13 +270,13 @@ async def test_pdf_export_endpoint(client: AsyncClient) -> None:
 
     # Setup
     ws = (await client.post(
-        "/api/v1/workspaces/",
+        "/api/v1/workspaces",
         json={"name": "Export WS", "slug": "export-ws"},
         headers=headers,
     )).json()
 
     proj = (await client.post(
-        "/api/v1/projects/",
+        "/api/v1/projects",
         json={
             "workspace_id": ws["id"],
             "name": "Export Project",

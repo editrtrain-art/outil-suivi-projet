@@ -43,7 +43,7 @@ class PhaseResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
-@router.post("/", response_model=PhaseResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=PhaseResponse, status_code=status.HTTP_201_CREATED)
 async def create_phase(
     data: PhaseCreate,
     service: PhaseService = Depends(get_phase_service),

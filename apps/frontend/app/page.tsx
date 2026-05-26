@@ -193,7 +193,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="mt-auto border-t border-slate-900 py-8 bg-slate-950/60 relative z-10 text-center text-slate-500 text-xs">
-        <p>© 2026 NEXUS — JESA S.A. All rights reserved.</p>
+        <p>© 2026 NEXUS — SNTE. All rights reserved.</p>
       </footer>
     </div>
   );

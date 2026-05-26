@@ -20,7 +20,7 @@ from app.domain.services.risk_service import RiskService
 router = APIRouter(prefix="/risks", tags=["risks"])
 
 
-@router.post("/", response_model=RiskResponse, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=RiskResponse, status_code=status.HTTP_201_CREATED)
 async def create_risk(
     data: RiskCreate,
     db: AsyncSession = Depends(get_db),

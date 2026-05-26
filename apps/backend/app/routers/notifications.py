@@ -41,7 +41,7 @@ class MarkReadRequest(BaseModel):
     notification_ids: List[uuid.UUID]
 
 
-@router.get("/", response_model=List[NotificationResponse])
+@router.get("", response_model=List[NotificationResponse])
 async def list_user_notifications(
     db: AsyncSession = Depends(get_db),
     current_user: dict[str, Any] = Depends(get_current_user),

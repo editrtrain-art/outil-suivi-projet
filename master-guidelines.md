@@ -1435,5 +1435,5 @@ Minimum code coverage target: **85%** on the CPM engine, EVM calculator, and res
 ---
 
 *End of Document — NEXUS Master Guidelines V3.0*
-*JESA S.A. — Digital Engineering & Safety Division*
+*SNTE — Digital Engineering & Safety Division*
 *Approved for Execution — May 24, 2026*
